@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('producerID')->references('id')->on('producers');
             $table->date('date');
             $table->integer('meter');
-            $table->integer('consumption');
+            $table->integer('consumption')->nullable();
             $table->integer('itemsProduced');
             $table->timestamps();
         });

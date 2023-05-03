@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('compressorID')->references('id')->on('compressors');
             $table->date('date');
             $table->integer('meter');
-            $table->integer('consumption');
+            $table->integer('consumption')->nullable();
             $table->integer('producedAir');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('airExtractorID')->references('id')->on('airExtractors');
             $table->date('date');
             $table->integer('meter');
-            $table->integer('consumption');
+            $table->integer('consumption')->nullable();
             $table->timestamps();
         });
     }
