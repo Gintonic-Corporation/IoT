@@ -27,7 +27,7 @@ return new class extends Migration
         DB::unprepared('create trigger fogyasztas3
         before insert on air_extractor_sensors for each row
         begin
-            set NEW.consumption=((NEW.meter) - (select max(air_extractor_sensor.meter) from air_extractor_sensor where air_extractor_sensors.airExtractorID=NEW.airExtractorID));
+            set NEW.consumption=((NEW.meter) - (select max(air_extractor_sensors.meter) from air_extractor_sensors where air_extractor_sensors.airExtractorID=NEW.airExtractorID));
             if NEW.consumption is null then set NEW.consumption=NEW.meter; END IF;
         end');
     }
