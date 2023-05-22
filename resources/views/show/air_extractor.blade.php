@@ -13,6 +13,13 @@
 use Illuminate\Http\Request;
 
     $data=DB::table('air_extractor_sensors')->where('airExtractorID','=',$air_extractor->id)->get();
+    if(count($data)==0){$dlabel="";$dcons="";};
+    $dlabel;$dcons;
+    foreach($data as $row)
+    {
+        $dlabel[]=$row->date;
+        $dcons[]=$row->consumption;
+    }
 ?>
 
 <table>
@@ -31,5 +38,34 @@ use Illuminate\Http\Request;
     </tr>
     @endforeach
 </table>
+<canvas id="myChart" height="100px" width="500px"></canvas>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+      var labels =  {{ Js::from($dlabel) }};
+      var cons =  {{ Js::from($dcons) }};
+
+      const data = {
+        labels: labels,
+        datasets: [{
+          label: 'Fogyasztás',
+          backgroundColor: 'rgb(240, 252, 3)',
+          borderColor: 'rgb(240, 252, 3)',
+          data: cons,
+        }]
+      };
+
+      const config = {
+        type: 'line',
+        data: data,
+        options: {}
+      };
+
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+</script>
 </html>
